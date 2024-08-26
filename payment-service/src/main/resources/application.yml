@@ -1,0 +1,25 @@
+#Port to start our application on.
+server:
+  port: 9107
+# Enabling h2 console logs database level logging
+spring:
+  h2:
+    console:
+      enabled: true
+  #Defining a application name to be used by Eureka server to register our application. This name then will be used by services to call this application
+  application:
+    name: PAYMENT-SERVICE
+
+#Register this application as eureka client.
+eureka:
+  client:
+    register-with-eureka: true
+    # This application will be discoverable to other applications to fetch from service registry
+    fetch-registry: true
+    # Eureka server url to which our application will be registered
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  # Hostname of the instance
+  instance:
+    hostname: localhost

@@ -1,0 +1,39 @@
+#Defining a application name to be used by Eureka server to register our application. This name then will be used by services to call this application
+spring:
+  application:
+    name: GATEWAY-SERVICE
+
+#Creating routes for gateway for different services. If the uri starts with lb://, this enables load balancer to use while routing the requests
+# By default, round-robin strategy is used by gateway for load balancing. lb://<service-name> will instruct gateway to lookup service via Eureka server
+  cloud:
+    gateway:
+      routes:
+ #Route for order service
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+# Predicates here define the url's for which we apply the routing. When user calls these path via gateway, requests will reach server
+          predicates:
+            - Path=/order/**
+#Route for payment service
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+    
+#Register this application as eureka client.
+eureka:
+  client:
+# This application will be discoverable to other applications to fetch from service registry
+    register-with-eureka: true
+# Eureka server url to which our application will be registered
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  # Hostname of the instance
+  instance:
+    hostname: localhost
+    
+#Port to start our application on.
+server:
+  port: 8989

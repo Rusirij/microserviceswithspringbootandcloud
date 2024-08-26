@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- Parent dependency to make this project as spring boot project and download all the default dependencies with it-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<!-- Defining our own project with a version and description -->
+	<groupId>demo</groupId>
+	<artifactId>cloud-gateway</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>cloud-gateway</name>
+	<description>edureka.demo</description>
+	<properties>
+		<java.version>11</java.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+		<spring-cloud.version>2021.0.0</spring-cloud.version>
+	</properties>
+	<dependencies>
+     <!-- Actuator dependency for monitoring our application. Actuator provides us health endpoints where we can monitor.
+      You can check the health of application at localhost:{port}/actuator
+      -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	<!-- Adding this dependency will enable all gateway related features and make this application work as a gateway and
+	 will enable routing by default.
+	You can now add different features like load balancing, authentication on gateway etc. as per application requirements
+	-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<!-- Eureka client for registering this application with eureka server. Along with @EnableEurekaClient,
+ this will register the application with eureka server to be discovered by other applications -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!-- Dependency to create spring boot tests -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<!-- Spring cloud dependencies for using dependency for eureka client and Gateway. Eureka and gateway dependency is part of spring cloud dependency -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<!-- It allows you to package executable jar or war archives, run Spring Boot applications,
+generate build information and start your Spring Boot application prior to running integration tests. -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

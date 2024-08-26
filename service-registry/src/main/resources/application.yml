@@ -1,0 +1,9 @@
+#As this is eureka server, we dont have to register this application with eureka, only eureka clients need to be registered.
+#Hence below configurations will be 'false'
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#port to bind our eureka server
+server:
+  port: 8761
